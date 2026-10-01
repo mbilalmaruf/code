@@ -1,0 +1,40 @@
+{
+  "encryptionKey": "",
+
+  "temporal": {
+    "hostPort": "localhost:7233",
+    "namespace": "default",
+    "taskQueue": "fabric-adapter",
+    "payloadEncryptionKey": "",
+    "maxConcurrentActivities": 0
+  },
+
+  "wallet": {
+    "url": "http://admin:CHANGE_ME@localhost:5984",
+    "database": "wallet",
+    "labelFormat": "{user}"
+  },
+
+  "registrars": [
+    {
+      "ca": "ca.org1.example.com",
+      "enrollId": "admin",
+      "enrollSecret": "adminpw",
+      "walletLabel": "admin",
+      "affiliation": "",
+      "identityType": "client"
+    }
+  ],
+  "allowProfileRegistrar": false,
+
+  "timeouts": {
+    "caMs": 30000,
+    "walletMs": 15000,
+    "evaluateMs": 30000,
+    "endorseMs": 30000,
+    "submitMs": 30000,
+    "commitStatusMs": 300000
+  },
+
+  "log": { "level": "info", "format": "json" }
+}

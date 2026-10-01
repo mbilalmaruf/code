@@ -1,0 +1,35 @@
+{
+  "callType": "invoke",
+  "channel": "mychannel",
+  "chaincode": "basic",
+  "function": "CreateAsset",
+  "args": ["asset100", "blue", "5", "Tom", "1300"],
+  "userId": "alice",
+  "options": { "maxConflictRetries": 3, "commitTimeoutSeconds": 300 },
+  "connectionProfile": {
+    "name": "test-network-org1",
+    "client": { "organization": "Org1" },
+    "organizations": {
+      "Org1": {
+        "mspid": "Org1MSP",
+        "peers": ["peer0.org1.example.com"],
+        "certificateAuthorities": ["ca.org1.example.com"]
+      }
+    },
+    "peers": {
+      "peer0.org1.example.com": {
+        "url": "grpcs://localhost:7051",
+        "tlsCACerts": { "pem": "-----BEGIN CERTIFICATE-----\nREPLACE_WITH_PEER_TLS_CA\n-----END CERTIFICATE-----\n" },
+        "grpcOptions": { "ssl-target-name-override": "peer0.org1.example.com" }
+      }
+    },
+    "certificateAuthorities": {
+      "ca.org1.example.com": {
+        "url": "https://localhost:7054",
+        "caName": "ca-org1",
+        "tlsCACerts": { "pem": ["-----BEGIN CERTIFICATE-----\nREPLACE_WITH_CA_TLS_CERT\n-----END CERTIFICATE-----\n"] },
+        "httpOptions": { "verify": true }
+      }
+    }
+  }
+}

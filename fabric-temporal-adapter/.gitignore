@@ -1,0 +1,4 @@
+# Real configs hold credentials; commit only configs/*.example.json and configs/examples/.
+configs/worker.json
+*.exe
+*.log
