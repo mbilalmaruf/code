@@ -1,0 +1,34 @@
+{
+  "name": "insuranceclaims",
+  "enabled": true,
+  "mode": "streaming",
+  "source": {
+    "databases": ["mychannel_claimcc$$pclaims"],
+    "databasePattern": "",
+    "documentNameFields": ["documentName", "DocumentName"],
+    "startFrom": "0"
+  },
+  "target": {
+    "schema": "public",
+    "deleteMode": "soft"
+  },
+  "schemaConfig": [
+    {
+      "name": "claim",
+      "columns": [
+        { "name": "key",                        "typeData": { "type": "STRING" },  "path": "key" },
+        { "name": "claimNo",                    "typeData": { "type": "STRING" },  "path": "claimNo" },
+        { "name": "claimAmount",                "typeData": { "type": "DECIMAL" }, "path": "claimAmount" },
+        { "name": "lossDays",                   "typeData": { "type": "INTEGER" }, "path": "lossDays" },
+        { "name": "lossDate",                   "typeData": { "type": "DATE" },    "path": "lossDate" },
+        { "name": "totalLoss",                  "typeData": { "type": "BOOLEAN" }, "path": "totalLoss" },
+        { "name": "accidentDetail",             "typeData": { "type": "JSON" } },
+        { "name": "accidentDetail.accidentNo",  "typeData": { "type": "STRING" },  "path": "accidentDetail.accidentNo" },
+        { "name": "tranxData",                  "typeData": { "type": "JSON" },    "path": "tranxData" }
+      ],
+      "otherOptions": {
+        "indexes": [ { "unique": true, "fields": ["key"] } ]
+      }
+    }
+  ]
+}

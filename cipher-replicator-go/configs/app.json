@@ -1,0 +1,54 @@
+{
+  "instanceName": "cipher-replicator-dev",
+  "encryptionKey": "",
+
+  "postgres": {
+    "connString": "postgres://replicator:CHANGE_ME@localhost:5432/replica?sslmode=disable",
+    "maxConns": 10,
+    "metaSchema": "replicator"
+  },
+
+  "couchdb": {
+    "url": "http://admin:CHANGE_ME@localhost:5984",
+    "requestTimeoutMs": 30000,
+    "heartbeatMs": 30000,
+    "insecureSkipVerify": false
+  },
+
+  "processConfigs": {
+    "dir": "processes"
+  },
+
+  "replication": {
+    "batchSize": 500,
+    "flushIntervalMs": 1000,
+    "onRowError": "fail",
+    "retry": { "maxAttempts": 5, "initialBackoffMs": 1000, "maxBackoffMs": 30000 }
+  },
+
+  "replicationLog": {
+    "enabled": false,
+    "mongoUri": "mongodb://localhost:27017",
+    "database": "cipher_replicator",
+    "collection": "replication_log",
+    "maxEntries": 1000,
+    "cappedSizeBytes": 67108864,
+    "includeDocument": false
+  },
+
+  "email": {
+    "enabled": false,
+    "host": "smtp.example.com",
+    "port": 587,
+    "username": "",
+    "password": "",
+    "from": "replicator@example.com",
+    "to": ["ops@example.com"],
+    "tlsMode": "starttls",
+    "subjectPrefix": "[cipher-replicator]"
+  },
+
+  "http": { "listen": ":9581" },
+
+  "log": { "level": "info", "format": "json" }
+}
