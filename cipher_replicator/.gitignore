@@ -1,0 +1,101 @@
+# logs
+.git
+*.log.*
+**/*.log.*
+**/*.log
+
+wallet
+
+# blocks
+**/*.block
+
+#lock
+**/*-lock.json
+*-lock.json
+
+# tx
+**/*.tx
+
+# tar files
+**/*.gz
+**/tar.*
+**/*.tar
+**/*.zip
+*.gz
+*.tar.*
+*.tar
+*.zip
+
+# WebStrom indexes idea
+.idea
+**/.idea
+
+# Visual Studio indexes idea
+.vscode
+**/.vscode
+
+**/node_modules
+node_modules
+captures
+
+# Cipher API
+cipher-api/public/images/**
+!cipher-api/public/images/.keep
+cipher-api/document/**
+!cipher-api/document/.keep
+cipher-api/temp/**
+!cipher-api/temp/.keep
+cipher-api/upload/**
+!cipher-api/upload/.keep
+cipher-api/data/**
+!cipher-api/data/.keep
+cipher-api/config/config.json
+
+# BCAdapter
+BCAdapter/IntegrationLayer/network-config.json
+BCAdapter/AppConfig.json
+BCAdapter/config.json
+BCAdapter/artifacts/channel/crypto-config/**
+BCAdapter/artifacts/data/**
+
+# CTSAgent
+CTSAgent/AppConfig.json
+CTSAgent/config/*.json
+
+# FileProcessingServices
+FileProcessingServices/Config
+
+# GRPAgent
+GRPAgent/AppConfig.json
+
+# RTDService
+RTDService/store/*.json
+
+# syncService
+syncService/data.json
+syncService/config/config.json
+
+# logTransactions
+logTransactions/config/config.json
+
+# BCAdapterDistributed
+BCAdapterDistributed/artifacts/channel/crypto-config/**
+BCAdapterDistributed/artifacts/data/**
+
+# BLADewa
+BLADewa/config/AppConfig.json
+BLADewa/config/config.json
+
+# BLAKhda
+BLAKhda/config/AppConfig.json
+BLAKhda/config/config.json
+
+# PrivacyAdaptor
+PrivacyAdaptor/store/**
+!PrivacyAdaptor/store/.keep
+
+# CipherUI
+CipherUI/constants/routes.js
+
+# keyVaultService
+keyVaultService/config/config.json

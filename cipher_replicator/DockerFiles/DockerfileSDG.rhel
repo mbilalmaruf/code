@@ -1,0 +1,15 @@
+FROM registry.access.redhat.com/ubi8/nodejs-10:1-51
+#FROM risingstack/alpine:3.7-v8.10.0-4.8.0
+MAINTAINER Avanza Innovations <bilal.mahroof@avanzainnovations.com>
+
+USER root
+WORKDIR /opt/app-root
+COPY package.json .
+COPY . .
+RUN bash -c "yum install -y python3"
+RUN bash -c "alternatives --set python /usr/bin/python3"
+RUN bash -c "npm rebuild"; exit 0
+RUN find / -perm /6000 -type f -exec chmod a-s {} \; || true
+HEALTHCHECK CMD node /opt/app-root/healthcheck.js localhost 9580 5000 /health
+#RUN bash -c "npm install"
+USER 1001

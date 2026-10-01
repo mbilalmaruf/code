@@ -1,0 +1,151 @@
+{
+    "replicatorQueue" : [ 
+        {
+            "name" : "block_num",
+            "typeData" : {
+                "type" : "BIGINT",
+                "allowNull" : false
+            }
+        }, 
+        {
+            "name" : "isprocessed",
+            "typeData" : {
+                "type" : "BOOLEAN",
+                "allowNull" : false,
+                "validate" : {}
+            }
+        }, 
+        {
+            "name" : "status",
+            "typeData" : {
+                "type" : "STRING",
+                "allowNull" : false,
+                "defaultValue" : "INVALID"
+            }
+        }, 
+        {
+            "name" : "eventName",
+            "typeData" : {
+                "type" : "STRING",
+                "allowNull" : false,
+                "defaultValue" : "INVALID"
+            }
+        }, 
+        {
+            "name" : "txid",
+            "typeData" : {
+                "type" : "STRING",
+                "allowNull" : false,
+                "defaultValue" : "INVALID"
+            }
+        }, 
+        {
+            "name" : "retry",
+            "typeData" : {
+                "type" : "BIGINT",
+                "allowNull" : false,
+                "defaultValue" : 0
+            }
+        }, 
+        {
+            "name" : "tranxData",
+            "typeData" : {
+                "type" : "JSON"
+            }
+        }, 
+        {
+            "name" : "key",
+            "typeData" : {
+                "type" : "JSON"
+            }
+        }
+    ],
+    "eventReplicatorQueue" : [ 
+        {
+            "name" : "block_num",
+            "typeData" : {
+                "type" : "BIGINT",
+                "allowNull" : false
+            }
+        }, 
+        {
+            "name" : "isprocessed",
+            "typeData" : {
+                "type" : "BOOLEAN",
+                "allowNull" : false,
+                "validate" : {}
+            }
+        }, 
+        {
+            "name" : "status",
+            "typeData" : {
+                "type" : "STRING",
+                "allowNull" : false,
+                "defaultValue" : "INVALID"
+            }
+        }, 
+        {
+            "name" : "eventName",
+            "typeData" : {
+                "type" : "STRING",
+                "allowNull" : false,
+                "defaultValue" : "INVALID"
+            }
+        }, 
+        {
+            "name" : "txid",
+            "typeData" : {
+                "type" : "STRING",
+                "allowNull" : false,
+                "defaultValue" : "INVALID"
+            }
+        }, 
+        {
+            "name" : "retry",
+            "typeData" : {
+                "type" : "BIGINT",
+                "allowNull" : false,
+                "defaultValue" : 0
+            }
+        }, 
+        {
+            "name" : "tranxData",
+            "typeData" : {
+                "type" : "JSON"
+            }
+        }, 
+        {
+            "name" : "key",
+            "typeData" : {
+                "type" : "JSON"
+            }
+        }
+    ],
+    "metaDataFields" : [ 
+        
+    ],
+    "errorTable" : {
+        "name" : "errors",
+        "columns" : [ 
+            {
+                "name" : "details",
+                "typeData" : {
+                    "type" : "JSON",
+                    "allowNull" : false,
+                    "defaultValue" : "{}"
+                }
+            }, 
+            {
+                "name" : "type",
+                "typeData" : {
+                    "type" : "STRING",
+                    "allowNull" : false,
+                    "unique" : false
+                }
+            }
+        ],
+        "otherOptions" : {
+            "indexes" : []
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+  "keyVault": {
+    "env": "consonance_reverse_repl",
+    "header": {
+      "username": "vaultKeeper",
+      "password": "DSGkeeper@321"
+    },
+    "url": "http://40.123.236.79:9009/keyVault"
+  }
+}

@@ -1,0 +1,12 @@
+.git
+npm-debug.log
+chaincode
+dist
+node_modules
+vendor
+*.sh
+#*.log.*
+#**/*.log.*
+#**/*.log
+config/config.json
+wallet

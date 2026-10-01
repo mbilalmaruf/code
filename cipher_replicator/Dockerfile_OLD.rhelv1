@@ -1,0 +1,21 @@
+#FROM registry.access.redhat.com/rhscl/nodejs-8-rhel7
+#FROM risingstack/alpine:3.7-v8.10.0-4.8.0
+FROM node:16
+MAINTAINER Avanza Innovations <bilal.mahroof@avanzainnovations.com>
+#FROM node:12
+#RUN  useradd -ms /bin/bash 1001
+#RUN adduser -S 1001
+#WORKDIR /home/avanza
+RUN bash -c "npm --version"
+#RUN node -v
+#RUN npm -v
+#RUN bash -c "mkdir -p /home/1001/app/logs"
+#RUN bash -c "mkdir -p /home/1001/app/dist"
+WORKDIR /opt/app-root
+COPY package.json .
+COPY . .
+RUN bash -c "npm install"
+HEALTHCHECK CMD node /opt/app-root/healthcheck.js localhost 10001 5000 /health
+USER 1001
+EXPOSE 9080
+CMD ["node","process"]

@@ -1,0 +1,21 @@
+FROM node:12
+#FROM risingstack/alpine:3.7-v8.10.0-4.8.0
+MAINTAINER Avanza Innovations <bilal.mahroof@avanzainnovations.com>
+WORKDIR /opt/app-root
+#RUN adduser -S 1001
+#USER 1001
+#WORKDIR /home/avanza
+#RUN chown -R node.node /src
+#RUN chmod 777 /opt/app-root
+#RUN bash -c "npm install build-tools  -g"
+#RUN node -v
+#RUN npm -v
+#RUN node-gyp rebuild
+#RUN bash -c "npm install pkcs11js --save"
+WORKDIR /opt/app-root
+COPY package.json .
+COPY . .
+RUN bash -c "npm install"
+USER 1001
+
+CMD [ "node", "app.js"]

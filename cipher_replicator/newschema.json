@@ -1,0 +1,1181 @@
+{
+    "_id" : ObjectId("67b809752362b90783e96eb9"),
+    "schemaProfileName" : "insuranceclaimschema",
+    "schemaConfig" : [
+        {
+            "encryption" : true,
+            "name" : "claim",
+            "columns" : [
+                {
+                    "name" : "block_num",
+                    "typeData" : {
+                        "type" : "INTEGER"
+                    },
+                    "path" : "block_num"
+                },
+                {
+                    "name" : "txnid",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "txnid"
+                },
+                {
+                    "name" : "status",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "status"
+                },
+                {
+                    "name" : "key",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "key"
+                },
+                {
+                    "name" : "claimNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "claimNo"
+                },
+                {
+                    "name" : "claimType",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "claimType"
+                },
+                {
+                    "name" : "requesterOrg",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "requesterOrg"
+                },
+                {
+                    "name" : "insuranceCompany",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "insuranceCompany"
+                },
+                {
+                    "name" : "claimAgainst",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "claimAgainst"
+                },
+                {
+                    "name" : "repairAgainst",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "repairAgainst"
+                },
+                {
+                    "name" : "claimAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "claimAmount"
+                },
+                {
+                    "name" : "currency",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "currency"
+                },
+                {
+                    "name" : "lossOfUse",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "lossOfUse"
+                },
+                {
+                    "name" : "lossDays",
+                    "typeData" : {
+                        "type" : "INTEGER"
+                    },
+                    "path" : "lossDays"
+                },
+                {
+                    "name" : "lossDate",
+                    "typeData" : {
+                        "type" : "DATE"
+                    },
+                    "path" : "lossDate"
+                },
+                {
+                    "name" : "requestDate",
+                    "typeData" : {
+                        "type" : "DATE"
+                    },
+                    "path" : "requestDate"
+                },
+                {
+                    "name" : "totalLoss",
+                    "typeData" : {
+                        "type" : "BOOLEAN"
+                    },
+                    "path" : "totalLoss"
+                },
+                {
+                    "name" : "vehicleLocation",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "city",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "city"
+                },
+                {
+                    "name" : "paymentReference",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "customer",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "customer"
+                },
+                {
+                    "name" : "mainClaimNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "mainClaimNo"
+                },
+                {
+                    "name" : "subClaimNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "subClaimNo"
+                },
+                {
+                    "name" : "coinsuranceContract",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "accidentDetail",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "accidentDetail.accidentNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "accidentDetail.accidentNo"
+                },
+                {
+                    "name" : "accidentDetail.accidentReason",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "accidentDetail.accidentReason"
+                },
+                {
+                    "name" : "accidentDetail.accidentDate",
+                    "typeData" : {
+                        "type" : "DATE"
+                    },
+                    "path" : "accidentDetail.accidentDate"
+                },
+                {
+                    "name" : "personAtFault",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "personNotAtFault",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "personNotAtFault.policyNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "personNotAtFault.policyNo"
+                },
+                {
+                    "name" : "personNotAtFault.holderName",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "personNotAtFault.holderName"
+                },
+                {
+                    "name" : "personNotAtFault.plateNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "personNotAtFault.plateNo"
+                },
+                {
+                    "name" : "personNotAtFault.makeAndModel",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "personNotAtFault.makeAndModel"
+                },
+                {
+                    "name" : "attachments",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "activityList",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "leadInsurerAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "leadInsurerAmount"
+                },
+                {
+                    "name" : "leadInsurerShare",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "leadInsurerShare"
+                },
+                {
+                    "name" : "contractNumber",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "contractNumber"
+                },
+                {
+                    "name" : "coInsurers",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "invoiceAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "invoiceAmount"
+                },
+                {
+                    "name" : "accidentno",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "accidentno"
+                },
+                {
+                    "name" : "makeandmodel",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "makeandmodel"
+                },
+                {
+                    "name" : "personalEndurance",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "estimationDetails",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "transactionType",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "transactionType"
+                },
+                {
+                    "name" : "insuranceType",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "insuranceType"
+                },
+                {
+                    "name" : "totalEstimatedAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "totalEstimatedAmount"
+                },
+                {
+                    "name" : "personalEndurance.courtCaseNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "personalEndurance.courtCaseNo"
+                },
+                {
+                    "name" : "personalEndurance.courtDecision",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "personalEndurance.courtDecision"
+                },
+                {
+                    "name" : "personalEndurance.courtDecisionDate",
+                    "typeData" : {
+                        "type" : "DATE"
+                    },
+                    "path" : "personalEndurance.courtDecisionDate"
+                },
+                {
+                    "name" : "personalEndurance.courtSubmissionDate",
+                    "typeData" : {
+                        "type" : "DATE"
+                    },
+                    "path" : "personalEndurance.courtSubmissionDate"
+                },
+                {
+                    "name" : "personalEndurance.reason",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "personalEndurance.reason"
+                },
+                {
+                    "name" : "estimationDetails.autoApprovalVariance",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "estimationDetails.autoApprovalVariance"
+                },
+                {
+                    "name" : "estimationDetails.icEstimatedAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "estimationDetails.icEstimatedAmount"
+                },
+                {
+                    "name" : "estimationDetails.partsClaimableAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "estimationDetails.partsClaimableAmount"
+                },
+                {
+                    "name" : "estimationDetails.partsEstimatedAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "estimationDetails.partsEstimatedAmount"
+                },
+                {
+                    "name" : "estimationDetails.partsTolerance",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "estimationDetails.partsTolerance"
+                },
+                {
+                    "name" : "estimationDetails.serviceClaimableAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "estimationDetails.serviceClaimableAmount"
+                },
+                {
+                    "name" : "estimationDetails.serviceEstimatedAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "estimationDetails.serviceEstimatedAmount"
+                },
+                {
+                    "name" : "estimationDetails.serviceTolerance",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "estimationDetails.serviceTolerance"
+                },
+                {
+                    "name" : "estimationDetails.totalClaimableAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "estimationDetails.totalClaimableAmount"
+                },
+                {
+                    "name" : "isHold",
+                    "typeData" : {
+                        "type" : "BOOLEAN"
+                    },
+                    "path" : "isHold"
+                },
+                {
+                    "name" : "settlementDetails.creditNoteNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "settlementDetails.creditNoteNo"
+                },
+                {
+                    "name" : "estimationComments",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "commentsAdded",
+                    "typeData" : {
+                        "type" : "BOOLEAN"
+                    },
+                    "path" : "commentsAdded"
+                },
+                {
+                    "name" : "totalCompensationAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "totalCompensationAmount"
+                },
+                {
+                    "name" : "wreckageAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "wreckageAmount"
+                },
+                {
+                    "name" : "retainWreckage",
+                    "typeData" : {
+                        "type" : "BOOLEAN"
+                    },
+                    "path" : "retainWreckage"
+                },
+                {
+                    "name" : "estimationDetails.wreckageAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "estimationDetails.wreckageAmount"
+                },
+                {
+                    "name" : "estimationDetails.totalCompensationAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "estimationDetails.totalCompensationAmount"
+                },
+                {
+                    "name" : "deductibleAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "deductibleAmount"
+                },
+                {
+                    "name" : "wrongParty",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "wrongParty"
+                },
+                {
+                    "name" : "damageType",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "damageType"
+                },
+                {
+                    "name" : "policy",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "policy"
+                },
+                {
+                    "name" : "personNotAtFault.dateOfFirstRegistration",
+                    "typeData" : {
+                        "type" : "DATE"
+                    },
+                    "path" : "personNotAtFault.dateOfFirstRegistration"
+                },
+                {
+                    "name" : "invoiceDetails.debitNoteNumber",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "invoiceDetails.debitNoteNumber"
+                },
+                {
+                    "name" : "partType",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "partType"
+                },
+                {
+                    "name" : "adjustmentAdded",
+                    "typeData" : {
+                        "type" : "BOOLEAN"
+                    },
+                    "path" : "adjustmentAdded"
+                },
+                {
+                    "name" : "adjustmentComments",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "paymentDate",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "invoiceDetails",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "recoveryFrom",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "recoveryFrom"
+                },
+                {
+                    "name" : "subStatus",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "subStatus"
+                },
+                {
+                    "name" : "rejectionType",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "rejectionType"
+                },
+                {
+                    "name" : "batchNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "batchNo"
+                },
+                {
+                    "name" : "isCreditNoteIssued",
+                    "typeData" : {
+                        "type" : "BOOLEAN"
+                    },
+                    "path" : "isCreditNoteIssued"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true,
+                "indexes" : [
+                    {
+                        "unique" : true,
+                        "fields" : [
+                            "key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name" : "claimcoinsurer",
+            "columns" : [
+                {
+                    "name" : "key",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "key"
+                },
+                {
+                    "name" : "claimNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "claimNo"
+                },
+                {
+                    "name" : "orgCode",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "orgCode"
+                },
+                {
+                    "name" : "claimType",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "claimType"
+                },
+                {
+                    "name" : "share",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "share"
+                },
+                {
+                    "name" : "shareAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "shareAmount"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true,
+                "indexes" : [
+                    {
+                        "unique" : true,
+                        "fields" : [
+                            "key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name" : "notificationRequest",
+            "columns" : [
+                {
+                    "name" : "key",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "key"
+                },
+                {
+                    "name" : "claimNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "claimNo"
+                },
+                {
+                    "name" : "status",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "status"
+                },
+                {
+                    "name" : "currentStatus",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "currentStatus"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true,
+                "indexes" : [
+                    {
+                        "unique" : true,
+                        "fields" : [
+                            "key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name" : "offsetpayment",
+            "columns" : [
+                {
+                    "name" : "key",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "key"
+                },
+                {
+                    "name" : "documentName",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "documentName"
+                },
+                {
+                    "name" : "batchNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "batchNo"
+                },
+                {
+                    "name" : "date",
+                    "typeData" : {
+                        "type" : "DATE"
+                    },
+                    "path" : "date"
+                },
+                {
+                    "name" : "requestorOrg",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "requestorOrg"
+                },
+                {
+                    "name" : "insuranceCompany",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "insuranceCompany"
+                },
+                {
+                    "name" : "status",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "status"
+                },
+                {
+                    "name" : "totalTransactions",
+                    "typeData" : {
+                        "type" : "INTEGER"
+                    },
+                    "path" : "totalTransactions"
+                },
+                {
+                    "name" : "receivableClaims",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "payableClaims",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "receivableAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "receivableAmount"
+                },
+                {
+                    "name" : "payableAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "payableAmount"
+                },
+                {
+                    "name" : "netAmount",
+                    "typeData" : {
+                        "type" : "DECIMAL"
+                    },
+                    "path" : "netAmount"
+                },
+                {
+                    "name" : "history",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "attachments",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true,
+                "indexes" : [
+                    {
+                        "unique" : true,
+                        "fields" : [
+                            "key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name" : "garage",
+            "columns" : [
+                {
+                    "name" : "key",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "key"
+                },
+                {
+                    "name" : "documentName",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "documentName"
+                },
+                {
+                    "name" : "garageName",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "garageName"
+                },
+                {
+                    "name" : "garageNo",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "garageNo"
+                },
+                {
+                    "name" : "garageLocation",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "garageLocation"
+                },
+                {
+                    "name" : "garageEmail",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "garageEmail"
+                },
+                {
+                    "name" : "contacts",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true,
+                "indexes" : [
+                    {
+                        "unique" : true,
+                        "fields" : [
+                            "key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name" : "garage_insurance",
+            "columns" : [
+                {
+                    "name" : "key",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "key"
+                },
+                {
+                    "name" : "documentName",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "documentName"
+                },
+                {
+                    "name" : "insuranceCompany",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "insuranceCompany"
+                },
+                {
+                    "name" : "garage",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "garage"
+                },
+                {
+                    "name" : "isActive",
+                    "typeData" : {
+                        "type" : "BOOLEAN"
+                    },
+                    "path" : "isActive"
+                },
+                {
+                    "name" : "activatedOn",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "activatedOn"
+                },
+                {
+                    "name" : "deactivatedOn",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "deactivatedOn"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true,
+                "indexes" : [
+                    {
+                        "unique" : true,
+                        "fields" : [
+                            "key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name" : "insurance_company",
+            "columns" : [
+                {
+                    "name" : "key",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "key"
+                },
+                {
+                    "name" : "documentName",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "documentName"
+                },
+                {
+                    "name" : "name",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "name"
+                },
+                {
+                    "name" : "orgType",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "orgType"
+                },
+                {
+                    "name" : "spCode",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "spCode"
+                },
+                {
+                    "name" : "address",
+                    "typeData" : {
+                        "type" : "JSON"
+                    }
+                },
+                {
+                    "name" : "isMember",
+                    "typeData" : {
+                        "type" : "BOOLEAN"
+                    },
+                    "path" : "isMember"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true,
+                "indexes" : [
+                    {
+                        "unique" : true,
+                        "fields" : [
+                            "key"
+                        ]
+                    }
+                ]
+            }
+        },
+        {
+            "name" : "insurance_company_activation_list",
+            "columns" : [
+                {
+                    "name" : "key",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "key"
+                },
+                {
+                    "name" : "documentName",
+                    "typeData" : {
+                        "type" : "STRING"
+                    },
+                    "path" : "documentName"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true,
+                "indexes" : [
+                    {
+                        "unique" : true,
+                        "fields" : [
+                            "key"
+                        ]
+                    }
+                ]
+            }
+        }
+    ],
+    "schema" : [
+        {
+            "name" : "claims",
+            "columns" : [
+                {
+                    "name" : "tranxData",
+                    "typeData" : {
+                        "type" : "JSON"
+                    },
+                    "path" : "tranxData"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true
+            }
+        },
+        {
+            "name" : "claimcoinsurers",
+            "columns" : [
+                {
+                    "name" : "tranxData",
+                    "typeData" : {
+                        "type" : "JSON"
+                    },
+                    "path" : "tranxData"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true
+            }
+        },
+        {
+            "name" : "notificationRequests",
+            "columns" : [
+                {
+                    "name" : "tranxData",
+                    "typeData" : {
+                        "type" : "JSON"
+                    },
+                    "path" : "tranxData"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true
+            }
+        },
+        {
+            "name" : "offsetpayment",
+            "columns" : [
+                {
+                    "name" : "tranxData",
+                    "typeData" : {
+                        "type" : "JSON"
+                    },
+                    "path" : "tranxData"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true
+            }
+        },
+        {
+            "name" : "garage",
+            "columns" : [
+                {
+                    "name" : "tranxData",
+                    "typeData" : {
+                        "type" : "JSON"
+                    },
+                    "path" : "tranxData"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true
+            }
+        },
+        {
+            "name" : "garage_insurance",
+            "columns" : [
+                {
+                    "name" : "tranxData",
+                    "typeData" : {
+                        "type" : "JSON"
+                    },
+                    "path" : "tranxData"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true
+            }
+        },
+        {
+            "name" : "insurance_company",
+            "columns" : [
+                {
+                    "name" : "tranxData",
+                    "typeData" : {
+                        "type" : "JSON"
+                    },
+                    "path" : "tranxData"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true
+            }
+        },
+        {
+            "name" : "insurance_company_activation_list",
+            "columns" : [
+                {
+                    "name" : "tranxData",
+                    "typeData" : {
+                        "type" : "JSON"
+                    },
+                    "path" : "tranxData"
+                }
+            ],
+            "otherOptions" : {
+                "freezeTableName" : true
+            }
+        }
+    ]
+}
