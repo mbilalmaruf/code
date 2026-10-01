@@ -5,12 +5,16 @@ This folder holds several separate projects. Most current work is the **CouchDB 
 | Folder | What it is | Ours? |
 |---|---|---|
 | `cipher-replicator-go/` | **New** replicator (Go). Streams CouchDB `_changes` into denormalised Postgres tables. | yes — active |
+| `fabric-temporal-adapter/` | **New** Temporal worker (Go). Runs a chaincode query/invoke for a user; enrolls the user via Fabric CA if not in the CouchDB wallet. | yes — active |
 | `cipher_replicator/` | **Legacy** replicator (Node.js). Reference for behaviour only; do not extend. See `cipher_replicator/CLAUDE.md`. | yes — legacy |
 | `DocumentVerify/` | Hyperledger Fabric network on OKE plus API/web UI (separate product). | yes — unrelated |
 | `fabric-gateway/` | Upstream Hyperledger Fabric Gateway SDK (git clone). | no — reference |
 | `samples-go/` | Upstream Temporal Go samples (git clone). | no — reference |
 
-Decision: **no Temporal.** It was considered and judged overkill. The replicator is a plain long-running Go service.
+Decisions:
+- **The replicator does not use Temporal.** It was judged overkill there, so the replicator is a plain long-running Go service.
+- **The Fabric adapter *is* Temporal-based** because the user asked for it. There, Temporal's retries and durable state make invoke safe (see below).
+- **Go toolchain:** `C:\Program Files\Go\bin\go.exe` (1.27.1). Use PowerShell or cmd; Git Bash doesn't have Go on its PATH and has been crashing (msys fatal error). Build with `-buildvcs=false`, because Go detects both git and svn above these folders.
 
 ---
 
@@ -32,6 +36,8 @@ Decision: **no Temporal.** It was considered and judged overkill. The replicator
    - follows the continuous `_changes` feed with `include_docs`
    - batches changes by count or time
    - writes rows **and its checkpoint in one Postgres transaction**
+
+   **Ordering:** each stream has exactly one reader, a FIFO channel and one writer. Changes are applied in feed order, and the next batch starts only after the previous one commits. The legacy code instead ran `fastq` with 5 concurrent workers, each saving its own checkpoint, so a later seq could be saved before an earlier one failed. Different databases run in parallel but never touch each other's rows, because the key is `(_couch_db, _couch_id)`.
 5. On any unrecoverable error, all streams stop, a **crash email** is sent, and the process exits with code 1. The orchestrator (k8s, systemd, …) restarts it, and it resumes from the committed checkpoint.
 6. Optionally writes the **last N replications (default 1000)** to a MongoDB **capped collection**. Set `replicationLog.enabled` to turn this on.
 
@@ -126,3 +132,98 @@ The key comes from `encryptionKey` or env `REPLICATOR_ENCRYPTION_KEY`; the env v
 - Postgres is the only target. Always use parameterised SQL. Quote identifiers with `pgx.Identifier` (`ident`/`qualified` in pgstore), and never concatenate raw config values.
 - Keep the startup order: validate everything, then DDL, then checkpoints, then streams. Never start a stream before all tables are ready.
 - Any new failure mode must either be classified as transient (retry) or return an error up to `main` (crash + email). Never swallow it silently.
+
+---
+
+## fabric-temporal-adapter
+
+A Temporal worker that executes one Fabric chaincode call on behalf of a user. It is built on `github.com/hyperledger/fabric-gateway` (v1.12.1, `pkg/client` and `pkg/identity`). The local `fabric-gateway/` clone was used only as API reference. Module name: `fabric-adapter`.
+
+### Workflow contract (callable from any Temporal SDK)
+- **Workflow type:** `FabricTransaction`. **Task queue:** `temporal.taskQueue` (default `fabric-adapter`).
+- **Input** (`internal/adapter/types.go` `Request`; example in `configs/examples/request.invoke.json`):
+  - `callType`: `query` or `invoke`
+  - `channel`, `chaincode`, optional `contract`
+  - `function`, `args[]`
+  - optional `transient{}` and `endorsingOrgs[]`
+  - `userId` (the wallet label and CA enrollment ID)
+  - optional `enrollmentSecret`
+  - optional `organization` (default: the profile's `client.organization`)
+  - `connectionProfile`: a Fabric common connection profile, as JSON
+  - `options.maxConflictRetries` (default 3) and `options.commitTimeoutSeconds` (default 300)
+- **Output** (`Result`):
+  - `transactionId`
+  - `payload` (bytes, base64 in JSON) and `payloadText` (the same payload when it is valid UTF-8)
+  - for invoke: `blockNumber` and `validationCode`
+  - `identityEnrolled`, `attempts`
+- **Error types** (`ApplicationError.Type`):
+  - `InvalidRequest`, `InvalidProfile`
+  - `NoCA`, `NoRegistrar`, `CAError`, `AlreadyRegistered`
+  - `WrongMSP`, `InvalidIdentity`, `CertificateExpired`, `IdentityMissing`
+  - `GatewayError` (chaincode, endorsement or permission error; not retried)
+  - `CommitFailed` (details carry `CommitOutput`)
+- Use a business **idempotency key as the workflow ID**. Temporal rejects a duplicate start, so a caller retrying its request cannot double-invoke.
+
+### Flow
+1. **`EnsureIdentity`**:
+   - Load `wallet.labelFormat(userId, mspId)` from the CouchDB wallet.
+   - If the identity is missing:
+     - If `enrollmentSecret` was given, enroll with it.
+     - Otherwise, register the user via the **registrar** configured for that CA, then enroll. The registrar is matched by profile CA key, `caName` or URL. The registrar itself is enrolled once and cached in the wallet as `walletLabel`, default `admin`.
+   - Store the new identity. If storing hits a 409 conflict, re-read and use the stored one.
+   - The identity is rejected if its MSP doesn't match, the key doesn't match the certificate, or the certificate has expired.
+2. **query**: the `Evaluate` activity.
+3. **invoke**: three activities in sequence:
+   - **`Endorse`** returns `Transaction.Bytes()` and the transaction ID. It is safe to retry because nothing reaches the ledger.
+   - **`Submit`** rebuilds the transaction with `gw.NewTransaction(bytes)` and submits it. A retry resubmits the **same tx ID**, which Fabric commits at most once.
+   - **`CommitStatus`** rebuilds the commit with `gw.NewCommit(bytes)` and waits for it, heartbeating.
+
+   If the result is `MVCC_READ_CONFLICT` or `PHANTOM_READ_CONFLICT`, the workflow re-endorses (up to `maxConflictRetries`). Any other invalid code fails with `CommitFailed`.
+4. **No private keys in Temporal history.** Activities pass only labels and the profile; each activity loads its credentials from the wallet itself.
+5. **Peer failover**: each activity attempt uses peer `(attempt-1) % len(org peers)`. gRPC connections are pooled per endpoint, and gateway sessions are opened per call.
+6. **Retries**: gRPC `Unavailable`, `DeadlineExceeded` and `ResourceExhausted` are retried, and so are network, wallet and CA 5xx errors. Everything else fails without retry.
+
+### Wallet format
+CouchDB docs use the same shape as Node `fabric-network`'s `CouchDBWalletStore`: `{"_id": label, "data": "<identity JSON string>"}`, where the identity JSON is `{"credentials":{"certificate","privateKey"},"mspId","type":"X.509","version":1}`. Identities enrolled by the legacy Node services are therefore reused as-is.
+
+Keys are PKCS#8 (SEC1 is also accepted when reading). Hashing is SHA-256, or SHA-384 for P-384 keys. Private keys are stored **unencrypted**, as the legacy services did.
+
+### Fabric CA
+Written directly against the REST API (`internal/ca`), because fabric-gateway has no CA client and fabric-sdk-go is deprecated.
+- Enroll uses a P-256 CSR with `CN = enrollmentID` and basic auth.
+- Register uses a token `b64(certPEM).b64(sig)`, where `sig` is a low-S ECDSA-SHA256 signature over `METHOD.b64(uri).b64(body).b64(cert)`. This is the fabric-ca ≥1.4 format, and a test verifies it.
+
+### Security notes
+- Workflow inputs are stored in Temporal history. That includes the connection profile, transient data and any `enrollmentSecret`.
+- To encrypt them, set `temporal.payloadEncryptionKey` (AES-GCM codec in `internal/codec`). Every client that starts the workflow must use the same codec and key. Unencrypted payloads are still accepted.
+- `allowProfileRegistrar` (default false) lets a registrar secret come from the request's profile, which puts that secret in history. Prefer `registrars` in the worker config; those fields accept legacy encrypted blobs and `ADAPTER_ENCRYPTION_KEY`.
+
+### Commands (from `fabric-temporal-adapter/`, PowerShell)
+```powershell
+go test ./...                    # unit tests: CA protocol, wallet format, profile, signer, workflow (Temporal test env)
+go build -buildvcs=false -o worker.exe  ./cmd/worker
+go build -buildvcs=false -o starter.exe ./cmd/starter
+.\worker.exe  [-config configs/worker.json]                              # env ADAPTER_CONFIG
+.\starter.exe -request configs\examples\request.invoke.json [-id <idempotency-key>]
+```
+
+### Layout
+```
+cmd/worker, cmd/starter
+internal/adapter    workflow.go (FabricTransaction), activities.go, types.go (contract)
+internal/ca         Fabric CA enroll/register + token
+internal/wallet     CouchDB wallet (Node-compatible)
+internal/profile    connection profile parsing (pem string|array|path, grpcs, ssl-target-name-override)
+internal/fabric     gRPC pool, signer, gateway connect, retry classification
+internal/codec      optional payload encryption
+internal/temporalx  Temporal client (TLS, codec) + logger
+internal/config     worker config (+ internal/secret, a copy of the replicator's)
+```
+
+### Status (2026-10-01)
+- Done: builds, `go vet` clean, unit tests pass. Includes a fake CA that verifies the register token signature, Node wallet docs, and workflow paths (query, invoke, MVCC retry, retries exhausted, commit failure, invalid request).
+- **Not verified against a real Fabric network, CA, CouchDB or Temporal server.** None was available locally; the starter got as far as "failed reaching server". Next step: run against the Fabric test-network plus `temporal server start-dev`.
+- Known gaps:
+  - no re-enroll when a certificate expires (fails with `CertificateExpired`)
+  - no attribute requests on enroll or register
+  - the YAML connection-profile form is not supported (JSON only)
