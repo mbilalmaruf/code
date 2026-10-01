@@ -1,0 +1,7 @@
+# Real configs hold credentials; commit only *.example.* files.
+configs/app.json
+configs/processes/*.json
+
+/replicator
+*.exe
+*.log
